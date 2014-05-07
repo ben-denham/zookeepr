@@ -19,31 +19,32 @@ lca_info = {
   'event_parent_organisation' : 'Linux Australia',
   'event_parent_url' : 'http://www.linux.org.au/',
   'event_generic_name' : 'linux.conf.au',
-  'event_name' : 'linux.conf.au 2011',
-  'event_shortname' : 'lca2011',
-  'event_city' : 'Hobart',
+  'event_name' : 'linux.conf.au 2015',
+  'event_shortname' : 'LCA-2015',
+  'event_city' : 'Auckland',
   'event_host' : 'lca2011.linux.org.au',
   'event_url' : 'http://lca2011.linux.org.au',
   'event_permalink' : 'http://lca2011.linux.org.au',
-  'event_hashtag' : '#LCA2011',
+  'event_hashtag' : '#LCA2015',
   'event_tax_number' : 'ABN 56 987 117 479',
   'event_postal_address' : 'PO BOX 2010 Keperra, Queensland, 4054',
   'event_fax_number' : '',
   'event_phone_number': '+61 7 3103 7998',
-  'event_byline': 'linux.conf.au 2011 | 24 - 29 Jan | Follow the Flow',
+  'event_byline': 'linux.conf.au 2015 | 12 - 16 Jan | Follow the Flow',
   'event_pricing_disclaimer': 'All prices are in Australian dollars and include 10% GST.',
   'event_trademark_notice': 'Linux is a registered trademark of Linus Torvalds',
   'event_airport_code': 'BNE',
-  'date' : datetime(2011, 1, 24, 9, 0, 00),
+  'date' : datetime(2015, 1, 12, 0, 0, 00),
   'media_license_name' : 'Creative Commons Attribution-Share Alike License',
   'media_license_url'  : 'http://creativecommons.org/licenses/by-sa/3.0/',
   #'sales_tax_multiplier' : 0.125,
   'sales_tax_divisor'    : 11,
-  'time_zone'   : timezone('Australia/Melbourne'),
+  'time_zone'   : timezone('Pacific/Auckland'),
 
   'invoice_message' : 'To qualify for the earlybird discount you must have registered and paid by the 8th of November (unless earlybird tickets sell out earlier).',
 
 # Possible statuses not_open|open|closed
+# @TODO bend: What exactly do these do?
   'cfp_status' : 'closed',
   'cfmini_status' : 'closed',
   'proposal_editing' : 'open',
@@ -58,6 +59,7 @@ lca_info = {
 
   'cfp_miniconf_list' : ["(none)", "Sysadmin", "Business", "Haecksen"],
 
+  # @TODO bend: Do we need this? Shouldn't we make sponsors a view?
   'sponsors': {
     'top': [
       {'alt': 'lca2007', 'src': '/images/history/lca2007-logo.png', 'href': 'http://lca2007.linux.org.au/'},
@@ -128,7 +130,7 @@ lca_rego = {
   'editors' : ['bluefish', 'eclipse', 'emacs', 'gedit', 'jed', 'kate', 'nano', 'vi', 'vim', 'xemacs'],
   'distros' : ['Arch', 'Arch/Hurd', 'CentOS', 'Darwin', 'Debian', 'Fedora', 'FreeBSD', 'FreeDOS', 'Gentoo', 'Hurd', 'GNU Emacs','Haiku OS','kFreeBSD','L4', 'Mandriva', 'Minix', 'MeeGo', 'NetBSD', 'Nexenta', 'OpenBSD', 'OpenSolaris', 'OpenSuSE', 'SLES','Oracle Enterprise Linux', 'RHEL', 'Slackware', 'Ubuntu', 'Xandros'],
   'vcses' : ['.bak', 'arch', 'bazaar', 'bitkeeper', 'cvs', 'darcs', 'git', 'mercurial', 'monotone', 'perforce', 'rcs', 'sourcesafe', 'subversion'],
-  'past_confs' : [('99', '1999 (CALU, Melbourne)'), ('01', '2001 (Sydney)'), ('02', '2002 (Brisbane)'), ('03', '2003 (Perth)'), ('04', '2004 (Adelaide)'), ('05', '2005 (Canberra)'), ('06', '2006 (Dunedin)'), ('07', '2007 (Sydney)'), ('08', '2008 (Melbourne)'), ('09', '2009 (Hobart)'), ('10', '2010 (Wellington)'), ('11', '2011 (Brisbane)'), ('12', '2012 (Ballarat)')],
+  'past_confs' : [('99', '1999 (CALU, Melbourne)'), ('01', '2001 (Sydney)'), ('02', '2002 (Brisbane)'), ('03', '2003 (Perth)'), ('04', '2004 (Adelaide)'), ('05', '2005 (Canberra)'), ('06', '2006 (Dunedin)'), ('07', '2007 (Sydney)'), ('08', '2008 (Melbourne)'), ('09', '2009 (Hobart)'), ('10', '2010 (Wellington)'), ('11', '2011 (Brisbane)'), ('12', '2012 (Ballarat)'), ('13', '2013 (Canberra)'), ('14', '2014 (Perth)')],
 
   'silly_description' : {
         'starts' : ["a", "a", "a", "one", "no"], # bias toward "a"
@@ -177,31 +179,67 @@ lca_rego = {
 
 lca_menu = [
   ('Home', '/', 'home'),
-  ('About', '/about/linux.conf.au', 'about'),
-  ('Brisbane', '/brisbane/about', 'brisbane'),
-  ('Sponsors', '/sponsors/sponsors', 'sponsors'),
-  ('Programme', '/programme/about', 'programme'),
-  ('Register', '/register/prices', 'register'),
-  #('Register', '/register/prices', 'register'), # -- Stage 4
-  ('Media', '/media/news', 'media'),
-  ('Contact', '/contact', 'contact'),
-  #('Planet', 'http://planet.lca2011.linux.org.au', 'planet'),
+  ('About', '/about', 'about'),
+  ('Programme', '/programme', 'programme'),
+  ('Sponsors', '/sponsors', 'sponsors'),
+  ('FAQ', '/faq', 'faq'),
   ('Wiki', '/wiki', 'wiki'),
+  #('Register', '/register/prices', 'register'),
+  #('Media', '/media/news', 'media'),
+  #('Contact', '/contact', 'contact'),
 ]
 
 lca_submenus = {
-  'about': ['linux.conf.au', 'lca2011 Ninjas', 'Venue', 'History', 'Linux/Open Source', 'Harassment'],
-  'brisbane': ['About', 'Sightseeing'],
-  'sponsors': ['Sponsors', 'Why Sponsor'],
+  #'about': ['linux.conf.au', 'lca2011 Ninjas', 'Venue', 'History', 'Linux/Open Source', 'Harassment'],
+  #'sponsors': ['Sponsors', 'Why Sponsor'],
   #'programme': ['About', 'Social Events', 'Open Day', 'Partners Programme'], # stage 0
   #'programme': ['About', 'Papers', 'Miniconfs', 'Presentations', 'Posters', 'Tutorials'], # stage 1
   #'programme': ['About', 'Keynotes', 'Miniconf Info', 'Papers Info', 'Social Events', 'Open Day', 'Partners Programme'], # stage 2
   #'programme': ['About', 'Keynotes', 'Miniconfs', 'Speakers Info', 'Social Events', 'Open Day', 'Partners Programme'], # stage 2a
-  'programme': ['About', 'Keynotes', 'Miniconfs', 'Schedule', 'Social Events', 'Open Day', 'Partners Programme'], # stage 3
+  #'programme': ['About', 'Keynotes', 'Miniconfs', 'Schedule', 'Social Events', 'Open Day', 'Partners Programme'], # stage 3
   #'programme': ['About', 'Keynotes', 'Miniconfs','Schedule','Social Events','Open Day', 'Partners Programme'], # stage 4?
-  'register': ['Prices', 'Accommodation', 'Terms and Conditions'],
+  #'register': ['Prices', 'Accommodation', 'Terms and Conditions'],
   #'register': ['Prices', 'Funding', 'Accommodation', 'Terms and Conditions'],
   #'register': ['Prices/Ticket types','Terms and Conditions','Accommodation','Partners programme'], # stage 4
-  'media': ['News','In the press','Graphics']
 }
 
+news_menu = [
+  ('RSS News Feed', '/'),
+  ('Announcements Mailing List', '/'),
+  ('@lca2015 Twitter', '/'),
+  ('irc.freenode.net/#lca2015', '/'),
+  ('Google +', '/'),
+]
+
+footer_menu = [
+  ('Home', '/'),
+  ('About', '/about'),
+  ('Programme', '/programme'),
+  ('News', '/news'),
+  ('Sponsors', '/sponsors'),
+  ('FAQ', '/faq'),
+  ('Wiki', '/wiki'),
+]
+
+registration_menu = [
+  ('Registration information', '/'),
+  ('Sign in', '/'),
+  ('Terms and Conditions', '/'),
+  ('Codes of Conduct', '/'),
+  ('Create an account', '/'),
+]
+
+contact_menu = [
+  ('Contact us', '/'),
+  ('About our team', '/'),
+  ('Google +', '/'),
+  ('Facebook', '/'),
+  ('Twitter', '/'),
+  ('Meetup', '/'),
+  ('Identi.ca', '/'),
+]
+
+sponsor_tiers = [
+    'Emperor',
+    'Other',
+]

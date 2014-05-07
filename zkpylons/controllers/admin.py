@@ -97,6 +97,9 @@ class AdminController(BaseController):
           ('/proposal/latex', ''' Proposals with LaTeX formatting [Booklet] '''),
           ('/registration/professionals_latex', ''' Profressionals with LaTeX formatting [Booklet] '''),
 
+
+          ('/sponsor', ''' Listing of conference sponsors [Sponsors] '''),
+
           #('/registration/list_miniconf_orgs', ''' list of miniconf
           #organisers (as the registration code knows them, for miniconf
           #voucher) [miniconf] '''),

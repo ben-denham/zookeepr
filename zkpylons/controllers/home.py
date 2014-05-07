@@ -4,6 +4,7 @@ from pylons import request, response, session, tmpl_context as c
 from zkpylons.lib.helpers import redirect_to
 
 from zkpylons.model import meta
+from zkpylons.model.sponsor import Sponsor
 from zkpylons.model.db_content import DbContent, DbContentType
 
 from zkpylons.lib.base import BaseController, render
@@ -30,4 +31,7 @@ class HomeController(BaseController):
         if 'signed_in_person_id' in session:
             c.signed_in_person = self.dbsession.query(Person).filter_by(id=session['signed_in_person_id']).one()
         c.db_content = DbContent.find_by_url('/home', abort_404=False)
+
+        c.tiered_sponsors = Sponsor.find_all_tiered()
+
         return render('/home.mako')
