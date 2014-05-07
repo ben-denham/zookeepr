@@ -5,8 +5,8 @@ External dependencies
 ---------------------
 
  * postgresql
-     
-    
+
+
 Creating a development environment
 ----------------------------------
 
@@ -24,7 +24,16 @@ Creating a development environment
 
         \# using virtualenwrapper
         mkvirtualenv zookeepr # --no-site-packages is default
-        workon zookeepr  
+        workon zookeepr
+
+	\# installing requirements
+
+	\# some packages need to be installed with specific flags.
+	pip install PIL==1.1.7 --allow-external PIL --allow-unverified PIL
+	pip install elementtree==1.2.6-20050316 --allow-external elementtree --allow-unverified elementtree
+	pip install setuptools --no-use-wheel --upgrade
+
+	pip install -r requirements.txt
 
 3. Configure.
 
