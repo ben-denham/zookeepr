@@ -1,0 +1,714 @@
+/*
+Zookeepr: Conference Management System http://zookeepr.org
+Copyright (C) 2014 Catalyst IT Ltd
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+/*------------------------------------------------------------------------------
+  Colours*/
+$black: #141414;
+$white: #ffffff;
+$light-charcoal: #706e6e;
+$charcoal: #333333;
+$light-grey: #adacac;
+$grey: #cccccc;
+$dark-grey: #666666;
+$light-orange: #f9b233;
+$dark-orange: #da7e2d;
+$light-green: #617980;
+$dark-green: #354d51;
+$success: lightgreen;
+
+/*------------------------------------------------------------------------------
+  Breakpoints*/
+$break-xs: 320px; /* Extra small devices (mobile devices, 320px and up) */
+$break-small: 768px; /* Small devices (tablets, 768px and up) */
+$break-medium: 992px; /* Medium devices (desktops, 992px and up) */
+$break-large: 1200px; /* Large devices (large desktops, 1200px and up) */
+/*------------------------------------------------------------------------------
+  Mixins*/
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    -o-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin box-shadow($horizontal, $vertical, $blur, $colour) {
+    -webkit-box-shadow: $horizontal $vertical $blur $colour;
+    -moz-box-shadow: $horizontal $vertical $blur $colour;
+    box-shadow: $horizontal $vertical $blur $colour;
+}
+
+@mixin text-shadow($horizontal, $vertical, $blur, $colour) {
+    -webkit-text-shadow: $horizontal $vertical $blur $colour;
+    -moz-text-shadow: $horizontal $vertical $blur $colour;
+    text-shadow: $horizontal $vertical $blur $colour;
+}
+/*------------------------------------------------------------------------------
+ */
+
+html,
+body {
+    height: 100%;
+    /* The html and body elements cannot have any padding or margin. */
+    color: $charcoal;
+    h1 {
+        font-size: 2.5em;
+        @media screen and (min-width: $break-large) {
+            font-size: 3em;
+        }
+    }
+    h2 {
+        font-size: 2.25em;
+        @media screen and (min-width: $break-large) {
+            font-size: 2.75em;
+        }
+    }
+    h3 {
+        font-size: 2em;
+        @media screen and (min-width: $break-large) {
+            font-size: 2.5em;
+        }
+    }
+    h4 {
+        font-size: 1.5em;
+        @media screen and (min-width: $break-large) {
+            font-size: 2em;
+        }
+    }
+    h5 {
+        font-size: 1.25em;
+        @media screen and (min-width: $break-large) {
+            font-size: 1.75em;
+        }
+    }
+    h6 {
+        font-size: 1em;
+        @media screen and (min-width: $break-large) {
+            font-size: 1.5em;
+        }
+    }
+
+    a {
+        text-decoration: underline;
+        color: $dark-green;
+    }
+
+    a:hover {
+        color: $light-green;
+    }
+
+    a:focus {
+        color: $light-green;
+        outline: none;
+    }
+}
+
+section {
+    padding: 1em 0;
+}
+.top-nav, .navbar {
+    background: url(/images/waterbar.png) top center repeat-x;
+    border: none;
+    @include border-radius(0);
+    padding: 0.5em 0;
+    margin-bottom: 1.5em;
+    z-index: 1;
+
+    .account-buttons {
+        margin-top: 0.8em;
+        float: right;
+    }
+
+    .navbar-header {
+        .toggle-btn {
+            border-color: $light-grey;
+            @include box-shadow(1px, 1px, 1px, $charcoal);
+            background-color: $light-grey;
+            padding: 0.6em;
+            margin-left: 2em;
+            margin-top: 0.6em;
+            float: none;
+
+            .icon-bar {
+                background-color: $charcoal;
+            }
+        }
+    }
+
+    .navbar-collapse {
+        @include box-shadow(0, 0, 0, $white);
+
+        margin-top: 3px;
+        @media screen and (min-width: $break-small) {
+            margin-top: 3px;
+        }
+
+        background: $dark-green;
+        @media screen and (min-width: $break-small) {
+            background: none;
+        }
+
+        .navigation-list {
+            text-align: center;
+            a {
+                color: $white;
+                font-family: 'AnitaSemiSquare' Fallback sans-serif;
+                text-decoration: none;
+                padding-left: 0.5em;
+                @include text-shadow(1px, 1px, 1px, $black);
+            }
+
+            a:hover {
+                background: none;
+                color: $light-orange;
+            }
+            a:focus {
+                background: none;
+                color: $light-orange;
+            }
+            a:active, .active-link {
+                color: $light-orange;
+            }
+        }
+    }
+}
+
+#skyline {
+    background: black;
+    width: 100%;
+    margin-top: -10px;
+
+    #skyline-inner {
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 893px;
+        min-height: 280px;
+        position: relative;
+
+        .image-wrapper {
+            display: table-cell;
+            vertical-align: bottom;
+            min-height: 280px;
+
+            img {
+                display: table-cell;
+                vertical-align: bottom;
+                max-width: 100%;
+            }
+        }
+
+        .blurb {
+            z-index: 500;
+            position: absolute;
+            margin-top: 6%;
+            margin-left: 12%;
+            width: 68%;
+            font-size: 1.5em;
+            font-family: 'HHSamuelRegular', Fallback, sans-serif;
+            color: $light-charcoal;
+
+            span {
+                font-size: 1.3em;
+            }
+
+            span.white {
+                color: $white;
+            }
+
+            span.light-orange {
+                color: $light-orange;
+            }
+
+            @media screen and (min-width: $break-small) {
+                font-size: 2em;
+            }
+        }
+    }
+
+    .angle-edge {
+        background: url(/images/angle-edge.png) repeat-x bottom;
+        height: 18px;
+        width: 100%;
+        position: relative;
+        z-index: 2;
+        margin-top: -10px;
+    }
+}
+
+main {
+    border-top: 10px solid white;
+
+    h1, h2, h3, h4 {
+        margin-top: 0.2em;
+        font-family: 'HHSamuelRegular', Fallback, sans-serif;
+        color: $light-green;
+        @include text-shadow(2px, 2px, 1px, $white);
+    }
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+    background: url(/images/skyline-footer.png) center bottom no-repeat;
+    background-size: 100%;
+    padding-bottom: 28%;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+
+    @media screen and (min-width: 1085px) {
+        background-size: auto;
+    }
+
+    @media screen and (min-width: $break-small) {
+        padding-bottom: 15%;
+    }
+
+    @media screen and (min-width: $break-large) {
+        padding-bottom: 180px;
+    }
+}
+
+.site-heading {
+    padding-right: 0;
+}
+
+.top-nav {
+    margin-bottom: 0;
+}
+
+header {
+    background: url(/images/header-map.png) center right;
+    margin-bottom: -10px;
+    background-position-y: 700px;
+
+    .container.title {
+        padding: 2em 0;
+
+        .logo-area {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .site-heading h2 {
+            text-align: center;
+            color: $black;
+            font-family: 'HHSamuelRegular' Fallback sans-serif;
+            font-size: 5em;
+            display: none;
+            margin-top: 60px;
+
+            @media screen and (min-width: $break-small) {
+                display: block;
+            }
+        }
+    }
+}
+
+.section-container {
+    z-index: 1;
+    background-color: $white;
+    margin-bottom: 1.5em;
+    padding: 2em 1em;
+    text-align: center;
+    p {
+        padding: 0.5em 2em;
+        text-align: left;
+    }
+    @include box-shadow(0, 0, 2px, $charcoal);
+    @include border-radius(5px);
+}
+
+.section-content {
+    padding: 1.2em;
+    background: url(/images/paper-bg.png);
+    border: 1px solid $grey;
+
+    .row {
+        margin: 0;
+    }
+}
+
+.section-heading {
+    color: $dark-grey;
+    position: relative;
+    text-align: center;
+
+    span.title {
+        background-color: $white;
+        text-align: center;
+        margin: auto;
+        position: relative;
+        font-size: 1em;
+        display: inline-block;
+        width: 165px;
+    }
+
+    span.grey-line {
+        background: $dark-grey;
+        position: absolute;
+        left: 0;
+        top: 0.6em;
+        height: 1px;
+        width: 100%;
+    }
+}
+
+#page-intro {
+
+    .main-content {
+        padding: 0;
+
+        p {
+            margin-top: 20px;
+        }
+    }
+
+    #days-left-section {
+        background: $white;
+        border: 15px solid $light-green;
+        @include border-radius(30px);
+        padding: 0.3em;
+
+        p {
+            text-align: center;
+        }
+
+        font-size: 1.5em;
+        font-family: 'HHSamuelRegular', Fallback, sans-serif;
+        @media screen and (min-width: $break-medium) {
+            font-size: 2em;
+        }
+        em {
+            font-size: 2em;
+            font-family: 'AlfphabetIV', Fallback, sans-serif;
+            font-style: normal;
+            color: $light-orange;
+            @include text-shadow(2px, 2px, 2px, $light-charcoal);
+        }
+        @media screen and (min-width: $break-medium) {
+            font-size: 3em;
+        }
+    }
+
+    .account-buttons {
+        margin-top: 20px;
+        text-align: center;
+    }
+}
+
+#news-section {
+
+    .row {
+    }
+
+    .news-item {
+        background: $white;
+        min-height: 180px;
+        padding: 1em;
+    }
+
+    .news-menu {
+        padding-top: 1em;
+        padding-bottom: 1em;
+        padding-right: 0.5em;
+        padding-left: 0.5em;
+
+        ul {
+            list-style-type: none;
+            background: url(/images/web-symbols.png) no-repeat;
+            margin-bottom: 0;
+
+            li {
+                line-height: 30px;
+            }
+        }
+
+        @media screen and (min-width: $break-small) {
+            padding: 1em;
+        }
+
+        @media screen and (min-width: $break-medium) {
+            padding-left: 3em;
+        }
+    }
+
+    .more {
+        text-align: center;
+    }
+
+}
+
+#sponsors-section {
+    $sponsor-height: 140px;
+
+    .become-sponsor-right {
+        float: right;
+        padding-top: 10px;
+    }
+
+    .sponsor-col {
+
+        .col-inner {
+            display: table;
+            border: 1px solid $grey;
+            background: $white;
+            height: $sponsor-height;
+            width: 100%;
+            margin: 10px 0;
+
+            .col-center {
+                vertical-align: middle;
+                text-align: center;
+                display: table-cell;
+                padding: 10px;
+
+                a {
+                    display: block;
+                    height: $sponsor-height - 22px;
+
+                    img {
+                        max-width: 100%;
+                        max-height: 100%;
+                    }
+
+                }
+
+                a.become-a-sponsor {
+                    height: auto;
+                }
+            }
+        }
+    }
+
+    // Here we handle the display/hiding of the "empty" logos.
+
+    // If we are showing 1 logo per row (smallest-width),
+    // then hide all "empty" logos.
+    .row.empty-1 .sponsor-col.sponsor-row-index-3,
+    .row.empty-2 .sponsor-col.sponsor-row-index-3,
+    .row.empty-3 .sponsor-col.sponsor-row-index-3,
+    .row.empty-2 .sponsor-col.sponsor-row-index-2,
+    .row.empty-3 .sponsor-col.sponsor-row-index-2,
+    .row.empty-3 .sponsor-col.sponsor-row-index-1 {
+        display: none;
+    }
+
+    // If we are showing 2 logos per row (small-width),
+    // then only show "empty" logos in the second column.
+    @media screen and (min-width: $break-small) {
+        .row.empty-3 .sponsor-col.sponsor-row-index-1 {
+            display: initial;
+        }
+    }
+
+    // If we are showing four logos per row (medium-large-width),
+    // then show all "empty" logos.
+    @media screen and (min-width: $break-medium) {
+        .row.empty-1 .sponsor-col.sponsor-row-index-3,
+        .row.empty-2 .sponsor-col.sponsor-row-index-3,
+        .row.empty-3 .sponsor-col.sponsor-row-index-3,
+        .row.empty-2 .sponsor-col.sponsor-row-index-2,
+        .row.empty-3 .sponsor-col.sponsor-row-index-2,
+        .row.empty-3 .sponsor-col.sponsor-row-index-1 {
+            display: initial;
+        }
+    }
+}
+
+.site-btn {
+    background-color: $light-orange;
+    color: $charcoal;
+    padding: 0.5em 0.8em;
+    border: none;
+    @include box-shadow(2px, 2px, 2px, $light-charcoal);
+    @include border-radius(4px);
+    text-decoration: none;
+    font-family: 'AnitaSemiSquare' Fallback sans-serif;
+}
+
+.site-btn:focus {
+    outline: none;
+}
+
+.site-btn:hover {
+    text-decoration: none;
+    background-color: $dark-orange;
+    color: $white;
+}
+
+.site-btn-inverse {
+    @extend .site-btn;
+    background-color: $light-grey;
+}
+
+.site-btn-inverse:hover {
+    background-color: $light-charcoal;
+}
+
+.button-area {
+    display: inline-block;
+    zoom: 1;
+    padding: 0.2em;
+}
+
+#up-button-area {
+    text-align: center;
+    margin-top: 10%;
+
+    @media screen and (min-width: $break-large) {
+        margin-top: 100px;
+    }
+}
+
+.footer {
+    padding: 1em 0;
+}
+
+footer {
+    background: url(/images/paper-bg.png);
+    padding: 1em 0 3em 0;
+    color: $charcoal;
+
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    .bold-text {
+        font-weight: bold;
+        font-style: normal;
+    }
+
+    a {
+        color: $charcoal;
+        text-decoration: underline;
+        line-height: 2em;
+    }
+
+    .active-link {
+        color: $white;
+    }
+
+    .icon {
+        padding: 0.5em 0.5em 0.5em 0;
+    }
+
+    .button-area {
+        float: right;
+        padding-right: 0;
+        .site-btn-inverse {
+            color: $white;
+            text-decoration: none;
+        }
+    }
+
+    #footer-menus {
+        display: none;
+        @media screen and (min-width: $break-large) {
+            display: block;
+        }
+    }
+
+    .col-lg-6 img {
+        margin: auto;
+    }
+
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.alerts {
+    margin-top: 10px;
+}
+
+.alert {
+    border: 1px solid #be7;
+    color: #234600;
+    background-color: #f8fff0;
+}
+
+.alert-error {
+    background-color: #ebcccc;
+    border-color: #ed541d;
+    color: #8c2e0b;
+}
+
+#admin-toolbar {
+    opacity: 0.85;
+    padding: 0.5em;
+    margin: 0;
+    position: fixed;
+    width: 100%;
+    background: $black;
+    z-index: 9999;
+
+    a {
+        color: $white;
+    }
+}
+
+table {
+    width: 100%;
+
+    th {
+        padding: 0.5em 0.5em 0.5em 0.2em;
+    }
+
+    td {
+        border: 1px solid $charcoal;
+        padding: 0.5em;
+    }
+}
+
+.label {
+    font-size: 100%;
+    padding: 0;
+}
+
+label {
+    color: $charcoal;
+    font-size: 100%;
+}
+
+.mandatory {
+    color: #ff0000;
+}
+
+.submitted {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.news-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 1.5em;
+    color: $charcoal;
+
+    a {
+        color: $charcoal;
+        text-decoration: none;
+    }
+    a:hover {
+        color: $charcoal;
+    }
+}

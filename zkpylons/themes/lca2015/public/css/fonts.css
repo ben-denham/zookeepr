@@ -1,0 +1,46 @@
+/*
+Zookeepr: Conference Management System http://zookeepr.org
+Copyright (C) 2014 Catalyst IT Ltd
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+@font-face {
+    font-family: 'AnitaSemiSquare';
+    src: url('/fonts/AnitaSemi-square.eot'); /* IE 9 Compatibility Mode */
+    src: url('/fonts/AnitaSemi-square.eot?#iefix') format('embedded-opentype'), /* IE < 9 */
+         url('/fonts/AnitaSemi-square.woff') format('woff'), /* Firefox >= 3.6, any other modern browser */
+         url('/fonts/AnitaSemi-square.ttf') format('truetype'); /* Safari, Android, iOS */
+}
+@font-face {
+    font-family: 'HHSamuelRegular';
+    src: url('/fonts/H.H.Samuel-font-defharo.eot'); /* IE 9 Compatibility Mode */
+    src: url('/fonts/H.H.Samuel-font-defharo.eot?#iefix') format('embedded-opentype'), /* IE < 9 */
+         url('/fonts/H.H.Samuel-font-defharo.woff') format('woff'), /* Firefox >= 3.6, any other modern browser */
+         url('/fonts/H.H.Samuel-font-defharo.ttf') format('truetype'); /* Safari, Android, iOS */
+}
+@font-face {
+    font-family: 'GlyphiconsHalflingsRegular';
+    src: url('/fonts/glyphicons-halflings-regular.eot'); /* IE 9 Compatibility Mode */
+    src: url('/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), /* IE < 9 */
+         url('/fonts/glyphicons-halflings-regular.woff') format('woff'), /* Firefox >= 3.6, any other modern browser */
+         url('/fonts/glyphicons-halflings-regular.ttf') format('truetype'); /* Safari, Android, iOS */
+}
+@font-face {
+    font-family: 'AlfphabetIV';
+    src: url('/fonts/Alfphabet-IV.eot'); /* IE 9 Compatibility Mode */
+    src: url('/fonts/Alfphabet-IV.eot?#iefix') format('embedded-opentype'), /* IE < 9 */
+         url('/fonts/Alfphabet-IV.woff') format('woff'), /* Firefox >= 3.6, any other modern browser */
+         url('/fonts/Alfphabet-IV.ttf') format('truetype'); /* Safari, Android, iOS */
+}

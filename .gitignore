@@ -9,3 +9,6 @@ env
 zk.egg-info
 zkpylons/public/att-data
 zkpylons/public/photocomp
+zkpylons/public/images/sponsors
+zkpylons/themes/*/public/images/sponsors
+*.sass-cache/
