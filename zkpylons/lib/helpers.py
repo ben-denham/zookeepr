@@ -10,7 +10,7 @@ from webhelpers.html import escape, HTML, literal, url_escape
 from webhelpers.html.tags import *
 from webhelpers.text import *
 import webhelpers.constants
-from datetime import datetime
+from datetime import datetime, date
 import simplejson as json
 
 try:
@@ -34,7 +34,10 @@ from zkpylons.lib import auth
 
 from zkpylons.model import Person
 
-from zkpylons.config.lca_info import lca_info, lca_rego, lca_menu, lca_submenus
+from zkpylons.config.lca_info import (lca_info, lca_rego, lca_menu,
+                                      lca_submenus, news_menu,
+                                      footer_menu, registration_menu,
+                                      contact_menu, sponsor_tiers)
 from zkpylons.config.zkpylons_config import file_paths
 
 from sqlalchemy.orm.util import object_mapper
@@ -542,3 +545,12 @@ def check_for_incomplete_profile(person):
             session['redirect_to'] =  request.path_info
             session.save()
         redirect_to(controller='person', action='finish_signup', id=person.id)
+
+def sleeps_till_conference():
+    lca_date = lca_info['date'].date()
+    today = date.today()
+    delta_time = lca_date - today
+    days = delta_time.days
+    if days < 0:
+        days = 0
+    return days
