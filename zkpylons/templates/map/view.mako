@@ -1,44 +1,21 @@
 <%inherit file="/base.mako" />
 
+<%namespace name="maps" file="/maps.mako" />
 <%def name="extra_head()">
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<script type="text/javascript" src="/js/geoxml3.js"></script>
-<script type="text/javascript">
-function detectBrowser() {
-  var useragent = navigator.userAgent;
-  var mapdiv = document.getElementById("map_canvas");
-    
-  if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
-    mapdiv.style.width = '100%';
-    mapdiv.style.height = '100%';
-  } else {
-    mapdiv.style.width = '600px';
-    mapdiv.style.height = '800px';
-  }
-}
-function map_load() {
-    var myLatlng = new google.maps.LatLng(${ h.lca_info['google_map_latlng'] });
-    var myOptions = {
-      zoom: 11,
-      center: myLatlng,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-
-    var myMap = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
-    var myParser = new geoXML3.parser({map: myMap});
-    myParser.parse("/map.kml");
-  }
-</script>
+      <% maps.extra_head() %>
+</%def>
+<%def name="body_property()">
+      <% maps.body_property() %>
 </%def>
 
-<%def name="extra_body()">
-  <body onload="map_load()">
-</%def>
+<h2>Venue Maps</h2>
 
-<h2>Venue Map</h2>
-
-<p>View this map on <a href="${ h.lca_info['google_map_url'] }">Google Maps</a>, download the <a href="${ h.lca_info['google_map_url'] }&output=kml">KML file</a>.</p>
-
-<div id="map_canvas" style="width:680px; height:500px"></div>
+% for map in h.lca_info['google_maps']:
+    <div class="map-wrapper">
+      <p>View this map on <a href="${ map['url'] }">Google Maps</a>, download the <a href="${ map['url'] }&output=kml">KML file</a>.</p>
+      <div class="map_canvas" data-lat="${ map['lat'] }" data-lng="${ map['lng'] }" style="width:680px; height:500px"></div>
+      % for marker in map['markers']:
+        <div class="marker" data-lat="${ marker['lat'] }" data-lng="${ marker['lng'] }" data-label="${ marker['label'] }">
+      % endfor
+    </div>
+% endfor

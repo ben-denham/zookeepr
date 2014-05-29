@@ -17,34 +17,13 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 </%doc>
 <%inherit file="/base.mako" />
-<h2>List of Sponsors</h2>
+<h2>Edit photo</h2>
 
-<table>
-    <tr>
-        <th>ID/Edit</th>
-        <th>Name</th>
-        <th>URL</th>
-        <th>Logo</th>
-        <th>Tier</th>
-        <th>Weight</th>
-        <th>Delete</th>
-    </tr>
-
-% for s in c.sponsor_collection:
-    <tr class="${ h.cycle('even', 'odd')}">
-        <td>${ h.link_to(str(s.id) + ' (edit)', url=h.url_for(controller='sponsor', action='edit', id=s.id)) }</td>
-        <td>${ s.name }</td>
-        <td><a href="${ s.url }">${ s.url }</a></td>
-        <td><img src="${ s.get_logo_path() }" /></td>
-        <td>${ s.tier }</td>
-        <td>${ s.weight }</td>
-        <td>${ h.link_to('X (delete)', url=h.url_for(controller='sponsor', action='delete', id=s.id)) }</td>
-    </tr>
-% endfor
-</table>
-<p>${ h.link_to('Add another', url=h.url_for(controller='sponsor', action='new')) }</p>
+${ h.form(h.url_for(), multipart=True) }
+<%include file="form.mako" />
+${ h.end_form() }
 
 <%def name="title()">
-List of Sponsors -
+Edit Photo -
  ${ parent.title() }
 </%def>

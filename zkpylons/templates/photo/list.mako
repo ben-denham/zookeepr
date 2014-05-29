@@ -17,34 +17,32 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 </%doc>
 <%inherit file="/base.mako" />
-<h2>List of Sponsors</h2>
+<h2>List of Photos</h2>
 
 <table>
     <tr>
         <th>ID/Edit</th>
         <th>Name</th>
-        <th>URL</th>
-        <th>Logo</th>
-        <th>Tier</th>
+        <th>Image</th>
+        <th>Gallery</th>
         <th>Weight</th>
         <th>Delete</th>
     </tr>
 
-% for s in c.sponsor_collection:
+% for p in c.photo_collection:
     <tr class="${ h.cycle('even', 'odd')}">
-        <td>${ h.link_to(str(s.id) + ' (edit)', url=h.url_for(controller='sponsor', action='edit', id=s.id)) }</td>
-        <td>${ s.name }</td>
-        <td><a href="${ s.url }">${ s.url }</a></td>
-        <td><img src="${ s.get_logo_path() }" /></td>
-        <td>${ s.tier }</td>
-        <td>${ s.weight }</td>
-        <td>${ h.link_to('X (delete)', url=h.url_for(controller='sponsor', action='delete', id=s.id)) }</td>
+        <td>${ h.link_to(str(p.id) + ' (edit)', url=h.url_for(controller='photo', action='edit', id=p.id)) }</td>
+        <td>${ p.name }</td>
+        <td><img src="${ p.get_path() }" /></td>
+        <td>${ p.gallery }</td>
+        <td>${ p.weight }</td>
+        <td>${ h.link_to('X (delete)', url=h.url_for(controller='photo', action='delete', id=p.id)) }</td>
     </tr>
 % endfor
 </table>
-<p>${ h.link_to('Add another', url=h.url_for(controller='sponsor', action='new')) }</p>
+<p>${ h.link_to('Add another', url=h.url_for(controller='photo', action='new')) }</p>
 
 <%def name="title()">
-List of Sponsors -
+List of Photos -
  ${ parent.title() }
 </%def>

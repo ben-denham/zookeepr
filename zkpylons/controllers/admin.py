@@ -99,6 +99,7 @@ class AdminController(BaseController):
 
 
           ('/sponsor', ''' Listing of conference sponsors [Sponsors] '''),
+          ('/photo', ''' Listing of conference photos [Photos] '''),
 
           #('/registration/list_miniconf_orgs', ''' list of miniconf
           #organisers (as the registration code knows them, for miniconf
@@ -645,12 +646,12 @@ class AdminController(BaseController):
             WHERE (
                 (
                     invoice.void IS NULL AND (
-                        SELECT CASE WHEN (count(invoice_item.id) = 0) THEN 0 ELSE sum(invoice_item.cost * invoice_item.qty) END AS anon_7 
-                        FROM invoice_item 
+                        SELECT CASE WHEN (count(invoice_item.id) = 0) THEN 0 ELSE sum(invoice_item.cost * invoice_item.qty) END AS anon_7
+                        FROM invoice_item
                         WHERE invoice_item.invoice_id = invoice.id
                     ) = (
-                        SELECT CASE WHEN (count(payment_received.id) = 0) THEN 0 ELSE sum(payment_received.amount_paid) END AS anon_8 
-                        FROM payment_received 
+                        SELECT CASE WHEN (count(payment_received.id) = 0) THEN 0 ELSE sum(payment_received.amount_paid) END AS anon_8
+                        FROM payment_received
                         WHERE payment_received.invoice_id = invoice.id AND payment_received.approved = '1'
                     )
                 ) = 't'
@@ -685,12 +686,12 @@ class AdminController(BaseController):
             WHERE (
                 (
                     invoice.void IS NULL AND (
-                        SELECT CASE WHEN (count(invoice_item.id) = 0) THEN 0 ELSE sum(invoice_item.cost * invoice_item.qty) END AS anon_7 
-                        FROM invoice_item 
+                        SELECT CASE WHEN (count(invoice_item.id) = 0) THEN 0 ELSE sum(invoice_item.cost * invoice_item.qty) END AS anon_7
+                        FROM invoice_item
                         WHERE invoice_item.invoice_id = invoice.id
                     ) = (
-                        SELECT CASE WHEN (count(payment_received.id) = 0) THEN 0 ELSE sum(payment_received.amount_paid) END AS anon_8 
-                        FROM payment_received 
+                        SELECT CASE WHEN (count(payment_received.id) = 0) THEN 0 ELSE sum(payment_received.amount_paid) END AS anon_8
+                        FROM payment_received
                         WHERE payment_received.invoice_id = invoice.id AND payment_received.approved = '1'
                     )
                 ) = 't'

@@ -1,4 +1,4 @@
-/*
+<%doc>
 Zookeepr: Conference Management System http://zookeepr.org
 Copyright (C) 2014 Catalyst IT Ltd
 
@@ -15,17 +15,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-*/
+</%doc>
+<%inherit file="/base.mako" />
+<h1>Delete Photo</h1>
 
-// @TODO bend: get correct Google Analytics account?
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-1446075-7']);
-_gaq.push(['_setDomainName', 'lcaunderthestars.org.au']);
-_gaq.push(['_setAllowLinker', true]);
-_gaq.push(['_trackPageview']);
-
-(function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
+${ h.form(h.url_for()) }
+<p> Are you sure you want to delete the "${ c.photo.name }" photo (number
+${c.photo.id})?</p>
+<p>${ h.hidden('delete', 'ok') }
+${ h.submit('Delete', 'Delete') }
+${ h.end_form() } or ${ h.link_to('No, take me back.', url=h.url_for(action='index', id=None)) }</p>

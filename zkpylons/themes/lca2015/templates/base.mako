@@ -26,6 +26,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 <%def name="extra_body()">
     ## Defined in children
 </%def>
+<%def name="body_property()"></%def>
 <%def name="big_promotion()">
     ## Defined in children
 </%def>
@@ -65,9 +66,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
     ${self.extra_head()}
   </head>
-  <body>
-    <%include file="toolbar.mako" args="parent=self" />
+  <body ${ self.body_property() }>
     ${self.extra_body()}
+    <%include file="toolbar.mako" args="parent=self" />
     <div id="wrap">
       <header id="header">
         <div class="container title">

@@ -37,7 +37,8 @@ from zkpylons.model import Person
 from zkpylons.config.lca_info import (lca_info, lca_rego, lca_menu,
                                       lca_submenus, news_menu,
                                       footer_menu, registration_menu,
-                                      contact_menu, sponsor_tiers)
+                                      contact_menu, sponsor_tiers,
+                                      photo_galleries)
 from zkpylons.config.zkpylons_config import file_paths
 
 from sqlalchemy.orm.util import object_mapper
@@ -55,7 +56,7 @@ def iterdict(items):
     """
     Create a dictionary having a list of items and an iterator to cycle
     through them.
-    
+
     This is a helper function for cycle() (below).
     """
     return dict(items=items, iter=itertools.cycle(items))
@@ -364,8 +365,8 @@ def silly_description_checksum(desc):
         e = e * cion + c
         e = e * cion + b
         e = e * cion + a
-        e = 1.0 / e   
-        return e   
+        e = 1.0 / e
+        return e
 
     false = ""
     true = False
@@ -374,7 +375,7 @@ def silly_description_checksum(desc):
             false=false+(haiku[int(math.floor(fun(ny)+1))],haiku[int(math.ceil(fun(ny)+1))])[true]
         else:
             false=false+(haiku[int(math.floor(fun(ny)))],haiku[int(math.ceil(fun(ny)))])[true]
-        true = not true                                                                        
+        true = not true
     false=false.lower()+"("+")"
 
     # Some assistance provided here. All we're doing is taking the silly input string and hashing it with some mysterious salt. Mmmmmm salt

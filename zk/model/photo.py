@@ -21,45 +21,40 @@ import sqlalchemy as sa
 from meta import Base
 from pylons.controllers.util import abort
 from meta import Session
-from zkpylons.lib.helpers import sponsor_tiers
 
 def setup(meta):
     pass
 
-class Sponsor(Base):
-    """Stores details of conference sponsors
+class Photo(Base):
+    """Stores details of various site photos, such as venue photos.
     """
-    __tablename__ = 'sponsor'
+    __tablename__ = 'photo'
 
-    image_path = '/images/sponsors/'
+    base_image_path = '/images/photos/'
 
     id = sa.Column(sa.types.Integer, primary_key=True)
     name = sa.Column(sa.types.Text, nullable=False)
-    url = sa.Column(sa.types.Text)
     description = sa.Column(sa.types.Text)
-    logo_path = sa.Column(sa.types.Text, nullable=False)
-    tier = sa.Column(sa.types.Text, nullable=False)
+    image_path = sa.Column(sa.types.Text, nullable=False)
+    gallery = sa.Column(sa.types.Text, nullable=False)
     weight = sa.Column(sa.types.Integer, nullable=False)
 
     @classmethod
     def find_all(cls):
-        return Session.query(Sponsor).order_by(Sponsor.tier, Sponsor.weight).all()
+        return Session.query(Photo).order_by(Photo.gallery, Photo.weight).all()
 
     @classmethod
-    def find_all_tiered(cls):
-        sponsors = Session.query(Sponsor).order_by(Sponsor.weight).all()
-        tiers = {}
-        for tier in sponsor_tiers:
-            tiers[tier] = [sponsor for sponsor in sponsors
-                           if sponsor.tier == tier]
-        return tiers
+    def find_all_by_gallery(cls, gallery):
+        return Session.query(Photo).filter_by(gallery=gallery).order_by(
+            Photo.weight).all()
 
     @classmethod
     def find_by_id(cls, id, abort_404 = False):
-        result =  Session.query(Sponsor).filter_by(id=id).first()
+        result =  Session.query(Photo).filter_by(id=id).first()
         if result is None and abort_404:
             abort(404, "No such sponsor object")
         return result
 
-    def get_logo_path(self):
-        return Sponsor.image_path + self.logo_path
+    def get_path(self):
+
+        return Photo.base_image_path + self.image_path

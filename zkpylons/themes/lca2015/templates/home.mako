@@ -19,6 +19,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 </%doc>
 <%inherit file="/base.mako" />
 
+<%namespace name="maps" file="/maps.mako" />
+<%def name="extra_head()">
+      <% maps.extra_head() %>
+</%def>
+<%def name="body_property()">
+      <% maps.body_property() %>
+</%def>
+
 <%def name="short_title()"><% return "Homepage" %></%def>
 
 <%def name="feature()">
@@ -69,3 +77,4 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 </section>
 <%include file="/latest_news.mako" />
 <%include file="/sponsors_block.mako" args="tiered_sponsors=c.tiered_sponsors" />
+<%include file="/location.mako" args="venue_photos=c.venue_photos, venue_text=c.venue_text" />

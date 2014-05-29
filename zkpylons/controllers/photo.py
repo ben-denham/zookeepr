@@ -21,7 +21,7 @@ from pylons import url, request, tmpl_context as c
 from pylons.controllers.util import redirect
 import zkpylons.lib.helpers as h
 from zkpylons.lib.helpers import redirect_to
-from zkpylons.model.sponsor import Sponsor
+from zkpylons.model.photo import Photo
 from zkpylons.model import meta
 from zkpylons.lib.validators import BaseSchema
 from zkpylons.lib.base import BaseController, render
@@ -33,121 +33,120 @@ from pylons.decorators import validate
 from pylons.decorators.rest import dispatch_on
 import os
 
-class SponsorSchema(BaseSchema):
+class PhotoSchema(BaseSchema):
     name = validators.String(not_empty=True)
-    url = validators.String()
     description = validators.String()
-    logo_file = validators.FieldStorageUploadConverter(unique=True)
-    tier = validators.OneOf(h.sponsor_tiers, not_empty=True)
+    image_file = validators.FieldStorageUploadConverter(unique=True)
+    gallery = validators.OneOf(h.photo_galleries, not_empty=True)
     weight = validators.Int()
 
-class NewSponsorSchema(BaseSchema):
-    sponsor = SponsorSchema()
+class NewPhotoSchema(BaseSchema):
+    photo = PhotoSchema()
     pre_validators = [NestedVariables]
 
-class UpdateSponsorSchema(BaseSchema):
-    sponsor = SponsorSchema()
+class UpdatePhotoSchema(BaseSchema):
+    photo = PhotoSchema()
     pre_validators = [NestedVariables]
 
-class SponsorController(BaseController):
+class PhotoController(BaseController):
 
-    sponsor_logos_directory = file_paths['public_path'] + Sponsor.image_path
+    photos_directory = file_paths['public_path'] + Photo.base_image_path
 
     # Returns the saved filename.
-    def _save_logo(self, file):
-        if not os.path.exists(self.sponsor_logos_directory):
-            os.makedirs(self.sponsor_logos_directory)
+    def _save_image(self, file):
+        if not os.path.exists(self.photos_directory):
+            os.makedirs(self.photos_directory)
 
         orig_filename, file_ext = os.path.splitext(file.filename)
         filename = orig_filename + file_ext
         index = 0
-        while os.path.exists(self.sponsor_logos_directory + filename):
+        while os.path.exists(self.photos_directory + filename):
             index += 1
             filename = orig_filename + ' (' + str(index) + ')' + file_ext
 
-        fp = open(self.sponsor_logos_directory + filename,'wb')
+        fp = open(self.photos_directory + filename,'wb')
         fp.write(file.value)
         file.file.close()
         fp.close()
         return filename
 
-    def _delete_logo(self, filename):
+    def _delete_image(self, filename):
         try:
-            os.remove(self.sponsor_logos_directory + filename)
+            os.remove(self.photos_directory + filename)
         except Exception:
             pass
 
     def index(self):
-        c.sponsor_collection = Sponsor.find_all()
-        return render('/sponsor/list.mako')
+        c.photo_collection = Photo.find_all()
+        return render('/photo/list.mako')
 
     @authorize(h.auth.has_organiser_role)
     @dispatch_on(POST="_new")
     def new(self):
-        c.sponsor = Sponsor()
-        defaults = h.object_to_defaults(c.sponsor, 'sponsor')
-        form = render('/sponsor/new.mako')
+        c.photo = Photo()
+        defaults = h.object_to_defaults(c.photo, 'photo')
+        form = render('/photo/new.mako')
         return htmlfill.render(form, defaults)
 
     @authorize(h.auth.has_organiser_role)
-    @validate(schema=NewSponsorSchema(), form='new', post_only=True,
+    @validate(schema=NewPhotoSchema(), form='new', post_only=True,
               on_get=True, variable_decode=True)
     def _new(self):
-        results = self.form_result['sponsor']
-        results['logo_path'] = self._save_logo(results['logo_file'])
-        del results['logo_file']
+        results = self.form_result['photo']
+        results['image_path'] = self._save_image(results['image_file'])
+        del results['image_file']
 
-        c.sponsor = Sponsor(**results)
-        meta.Session.add(c.sponsor)
+        c.photo = Photo(**results)
+        meta.Session.add(c.photo)
         meta.Session.commit()
 
-        h.flash("New Sponsor Created.")
-        redirect(url(controller='sponsor', action='index'))
+        h.flash("New Photo Created.")
+        redirect(url(controller='photo', action='index'))
 
     @authorize(h.auth.has_organiser_role)
     @dispatch_on(POST="_edit")
     def edit(self, id):
-        c.sponsor = Sponsor.find_by_id(id)
+        c.photo = Photo.find_by_id(id)
 
-        defaults = h.object_to_defaults(c.sponsor, 'sponsor')
+        defaults = h.object_to_defaults(c.photo, 'photo')
 
-        form = render('/sponsor/edit.mako')
+        form = render('/photo/edit.mako')
         return htmlfill.render(form, defaults)
 
     @authorize(h.auth.has_organiser_role)
-    @validate(schema=UpdateSponsorSchema(), form='edit', post_only=True,
+    @validate(schema=UpdatePhotoSchema(), form='edit', post_only=True,
               on_get=True, variable_decode=True)
     def _edit(self, id):
-        c.sponsor = Sponsor.find_by_id(id)
-        results = self.form_result['sponsor']
+        c.photo = Photo.find_by_id(id)
+        results = self.form_result['photo']
 
-        if hasattr(results['logo_file'], 'value'):
-            self._delete_logo(c.sponsor.logo_path)
-            results['logo_path'] = self._save_logo(results['logo_file'])
-        del results['logo_file']
+        if hasattr(results['image_file'], 'value'):
+            self._delete_image(c.photo.image_path)
+            results['image_path'] = self._save_image(results['image_file'])
+        del results['image_file']
 
-        for key in self.form_result['sponsor']:
-            setattr(c.sponsor, key, results[key])
+        for key in self.form_result['photo']:
+            setattr(c.photo, key, results[key])
 
         # update the objects with the validated form data
         meta.Session.commit()
-        h.flash("Sponsor updated.")
-        redirect(url(controller='sponsor', action='index'))
+        h.flash("Photo updated.")
+        redirect(url(controller='photo', action='index'))
 
     @authorize(h.auth.has_organiser_role)
     @dispatch_on(POST="_delete")
     def delete(self, id):
-        c.sponsor = Sponsor.find_by_id(id)
-        return render('/sponsor/confirm_delete.mako')
+        c.photo = Photo.find_by_id(id)
+        return render('/photo/confirm_delete.mako')
 
     @authorize(h.auth.has_organiser_role)
     @validate(schema=None, form='delete', post_only=True, on_get=True,
               variable_decode=True)
     def _delete(self, id):
-        c.sponsor = Sponsor.find_by_id(id)
-        self._delete_logo(c.sponsor.logo_path)
-        meta.Session.delete(c.sponsor)
+        c.photo = Photo.find_by_id(id)
+        self._delete_image(c.photo.image_path)
+        meta.Session.delete(c.photo)
         meta.Session.commit()
 
-        h.flash("Sponsor Deleted.")
-        redirect(url(controller='sponsor', action='index'))
+        h.flash("Photo Deleted.")
+        redirect(url(controller='photo', action='index'))
