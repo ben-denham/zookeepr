@@ -23,7 +23,7 @@ import zkpylons.lib.helpers as h
 from zkpylons.lib.helpers import redirect_to
 from zkpylons.model.photo import Photo
 from zkpylons.model import meta
-from zkpylons.lib.validators import BaseSchema
+from zkpylons.lib.validators import BaseSchema, ImageUploadValidator
 from zkpylons.lib.base import BaseController, render
 from zkpylons.config.zkpylons_config import file_paths
 from formencode import validators, htmlfill
@@ -36,7 +36,7 @@ import os
 class PhotoSchema(BaseSchema):
     name = validators.String(not_empty=True)
     description = validators.String()
-    image_file = validators.FieldStorageUploadConverter(unique=True)
+    image_file = ImageUploadValidator(unique=True)
     gallery = validators.OneOf(h.photo_galleries, not_empty=True)
     weight = validators.Int()
 

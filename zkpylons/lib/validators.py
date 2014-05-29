@@ -1,4 +1,5 @@
 import formencode
+import imghdr
 from formencode import validators, Invalid #, schema
 
 from zkpylons.model import Person, Proposal, ProposalType, TargetAudience
@@ -98,6 +99,13 @@ class FileUploadValidator(validators.FancyValidator):
         if len(content) > 3000000: #This is not the right place to validate it, but at least it is validated...
             raise Invalid('Files must not be bigger than 2MB', value, state)
         return dict(filename=filename, content=content)
+
+class ImageUploadValidator(FileUploadValidator):
+    def _to_python(self, value, state):
+        super(ImageUploadValidator, self)._to_python(value, state)
+        if not imghdr.what(value.filename, value.value):
+            raise Invalid('Uploaded file must be an image', value, state)
+        return value
 
 class FundingTypeValidator(validators.FancyValidator):
     def _to_python(self, value, state):
