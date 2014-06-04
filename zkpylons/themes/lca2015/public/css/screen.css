@@ -549,3 +549,6 @@ label {
   -webkit-box-shadow: 1px 1px 1px #706e6e;
   -moz-box-shadow: 1px 1px 1px #706e6e;
   box-shadow: 1px 1px 1px #706e6e; }
+
+.toolbox-menu-container .toolbox-section ul {
+  padding-left: 10px; }

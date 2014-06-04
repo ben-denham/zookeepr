@@ -30,6 +30,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 <%def name="big_promotion()">
     ## Defined in children
 </%def>
+<%def name="toolbox_extra()">
+    ## Defined in children
+</%def>
 <%def name="toolbox_extra_admin()">
     ## Defined in children
 </%def>
@@ -86,6 +89,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         ${ self.feature() }
         <div class="container">
           <%include file="/flash.mako" />
+          % if h.signed_in_person():
+            <%include file="/toolbox.mako" args="parent=self" />
+          % endif
           ${ self.body() }
           <div id="up-button-area" class="col-lg-12">
             <div class="button-area">

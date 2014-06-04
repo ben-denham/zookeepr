@@ -750,3 +750,15 @@ label {
     padding: 5px;
     @include box-shadow(1px, 1px, 1px, $light-charcoal);
 }
+
+.toolbox-menu-container {
+
+    .toolbox-section {
+
+	ul {
+	    padding-left: 10px;
+	}
+
+    }
+
+}
