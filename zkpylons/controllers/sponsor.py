@@ -23,7 +23,7 @@ import zkpylons.lib.helpers as h
 from zkpylons.lib.helpers import redirect_to
 from zkpylons.model.sponsor import Sponsor
 from zkpylons.model import meta
-from zkpylons.lib.validators import BaseSchema
+from zkpylons.lib.validators import BaseSchema, ImageUploadValidator
 from zkpylons.lib.base import BaseController, render
 from zkpylons.config.zkpylons_config import file_paths
 from formencode import validators, htmlfill
@@ -37,7 +37,7 @@ class SponsorSchema(BaseSchema):
     name = validators.String(not_empty=True)
     url = validators.String()
     description = validators.String()
-    logo_file = validators.FieldStorageUploadConverter(unique=True)
+    logo_file = ImageUploadValidator(unique=True)
     tier = validators.OneOf(h.sponsor_tiers, not_empty=True)
     weight = validators.Int()
 
